@@ -4,45 +4,27 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, TextInput } from "react-native";
 
 export default function Explore() {
-  // suggestions
-  let [sug, setSug] = useState([]);
-  let stuff = ["Empty list."];
+  const [data, setData] = useState(null);
 
-  // get data
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/skibidi")
-      .then((r) => r.json())
-      .then((data) => {
-        setSug(data);
-      })
-      .catch((e) => console.log("Bruh error :" + e));
+    fetch('http://127.0.0.1:5000/skibidi')
+      .then(response => response.json())
+      .then(data => setData(data))
+      .catch(error => console.error('Error fetching data:', error));
   }, []);
 
-  console.log("bruh", sug.suggested_place);
+  if (!data) {
+    return <div>Loading...</div>;
+  }
 
-  stuff = [...sug.suggested_place];
-
-  console.log("sakuhsladhf", stuff);
-  // region lang inteterest
   return (
-    <>
-      <TextInput
-        style={styles.input}
-        placeholder="Where to go?"
-      />
-      <ThemedText
-        darkColor="#000000"
-        type="title"
-      >
-        Suggestions
-      </ThemedText>
-
+    <div>
+      <h1>{data.title}</h1>
+      <p>{data.description}</p>
       <ul>
-        {stuff.map((item, index) => (
-          <li>{item}</li>
-        ))}
+        {JSON.stringify(data.items)}
       </ul>
-    </>
+    </div>
   );
 }
 const styles = StyleSheet.create({
