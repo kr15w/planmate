@@ -1,65 +1,99 @@
-import LocationCard from "@/components/LocationCard";
-import ImageCarousel from "@/components/ImageCarousel";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, TextInput, Text, ScrollView, View, Image } from "react-native";
+import {
+  StyleSheet,
+  TextInput,
+  Text,
+  ScrollView,
+  View,
+  Image,
+} from "react-native";
+import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
-import { Tag } from "@/components/Tag"
-import {StarRating} from "@/components/StarRating"
+import { Tag } from "@/components/Tag";
+import { StarRating } from "@/components/StarRating";
+import ParallaxScrollView from "@/components/ParallaxScrollView";
 
 export default function Explore() {
   let [sug, setSug] = useState({
-    "suggested_place": [
-        {
-            "name": "default",
-            "isPartners": true,
-            "rating": 0,
-            "themes": ["theme1"],
-            "desc":  "loremloremlorem",
-            "related": ["link1", "link2"]
-        }, 
-        {
-          "name": "default",
-          "rating": 0,
-          "themes": ["theme1"],
-          "desc":  "loremloremlorem",
-          "related": ["link1", "link2"]
+    suggested_place: [
+      {
+        name: "default",
+        isPartners: false,
+        rating: -1,
+        themes: ["theme1"],
+        desc: "loremloremlorem",
+        related: ["link1", "link2"],
       },
-    ]
-    });
+    ],
+  });
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5000/skibidi')
-      .then(response => response.json())
-      .then(data => setSug(data))
-      .catch(error => console.error('Error fetching data:', error));
-  }, []);
+    fetch("http://192.168.50.34:5000/skibidi")
+      .then((response) => response.json())
+      .then((data) => setSug(data))
+      .catch((error) => console.error("Error fetching data:", error));
+  }, [sug.suggested_place.rating]);
 
   if (!sug) {
-    return <div>Loading...</div>;
+    return <ThemedView>Loading...</ThemedView>;
   }
+  console.log("shop info: ", sug);
   sug = sug.suggested_place;
 
   return (
-    <>
-    <ScrollView style={{padding:10}}>
-    <Image style={{width: 100, height: 100}} source={{uri: "assets/images/Tokyo licensed image 1.png"}}/>
-
-      <ThemedText type="title" darkColor="#000000">{sug[0].name}</ThemedText>
-      {sug[0].isPartners == "true" ? <Text>Partners</Text> : <></>}
-      <ThemedText type="subtitle" darkColor="#555555">Themes: </ThemedText>
-      <View style={styles.tagContainer}>
-        {sug[0].themes.map((item, index) => (<Tag name={item}/>))}
-      </View>
-      <View>
-        <ThemedText type="subtitle" darkColor="#555555">Relavance: </ThemedText>
-        <StarRating score={sug[0].rating}/>
-      </View>
-      <View>
-        <ThemedText type="subtitle" darkColor="#555555">Description: </ThemedText>
-        <Text>{sug[0].desc}</Text>
-      </View>
-    </ScrollView>
-    </>
+    <ParallaxScrollView
+      headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
+      headerImage={
+        <ScrollView
+          horizontal={true}
+          fadingEdgeLength={0}
+          decelerationRate={0.8}
+          style={styles.imageContainer}
+        >
+          <Image
+            style={{ width: 1000, height: 100 }}
+            source={{ uri: "assets/images/Tokyo licensed image 1.png" }}
+          />
+          <Image
+            style={{ width: 100, height: 100 }}
+            source={{ uri: "assets/images/Tokyo licensed image 1.png" }}
+          />
+          <Image
+            style={{ width: 100, height: 100 }}
+            source={{ uri: "assets/images/Tokyo licensed image 1.png" }}
+          />
+          <Image
+            style={{ width: 100, height: 100 }}
+            source={{ uri: "assets/images/Tokyo licensed image 1.png" }}
+          />
+          <Image
+            style={{ width: 100, height: 100 }}
+            source={{ uri: "assets/images/Tokyo licensed image 1.png" }}
+          />
+        </ScrollView>
+      }
+    >
+      <ThemedView style={{ padding: 10 }}>
+        <ThemedText type="title">{sug[0].name}</ThemedText>
+        <ThemedText type="subtitle">Themes: </ThemedText>
+        <View style={styles.tagContainer}>
+          {sug[0].themes.map((item, index) => (
+            <Tag
+              name={item}
+              key={index}
+            />
+          ))}
+        </View>
+        <View>
+          <ThemedText type="subtitle">Relavance: </ThemedText>
+          <StarRating score={sug[0].rating} />
+        </View>
+        <View>
+          <ThemedText type="subtitle">Description: </ThemedText>
+          <ThemedText>{sug[0].desc}</ThemedText>
+        </View>
+      </ThemedView>
+    </ParallaxScrollView>
   );
 }
 //<LocationCard image={"/assets/images/bana.jpg"} name={item.name} info={item.info} key={index}>Trol</LocationCard>
@@ -75,5 +109,6 @@ const styles = StyleSheet.create({
   tagContainer: {
     flex: 1,
     flexDirection: "row",
-  }
+  },
+  imageContainer: {},
 });

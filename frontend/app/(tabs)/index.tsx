@@ -15,27 +15,14 @@ export default function HomeScreen() {
       }
     >
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Hello chat!</ThemedText>
+        <ThemedText type="title">Welcome to PlanMate!</ThemedText>
       </ThemedView>
+
       <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
+        <ThemedText type="subtitle">Explore</ThemedText>
         <ThemedText>
-          Edit
-          <ThemedText type="defaultSemiBold">
-            app/(tabs)/index.tsx
-          </ThemedText>{" "}
-          to see changes. Press{" "}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: "cmd + d", android: "cmd + m" })}
-          </ThemedText>{" "}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this
-          starter app.
+          This is where all your exciting journeys start! Press "Places" to get
+          started!
         </ThemedText>
       </ThemedView>
     </ParallaxScrollView>

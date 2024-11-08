@@ -13,7 +13,7 @@ def fetch_data():
         {
             "name": "The Coffee Academics",
             "isPartners": True,
-            "rating": '5',
+            "rating": 5,
             "themes": ["leisure", "food"],
             "desc":  "The Coffee Academϊcs 在香港有多家分店，灣仔分店提供精心挑選的咖啡豆和專業的咖啡沖泡技術。作為國泰航空的合作夥伴，國泰會員在這裡消費可以賺取Asia Miles。遊客可以在這裡品嚐一杯香醇的咖啡，享受片刻的寧靜。",
             "related": ["link1", "link2"]
@@ -21,7 +21,7 @@ def fetch_data():
         {
           "name": "Hmm",
           "isPartners": False,
-          "rating": '3',
+          "rating": 3,
           "themes": ["Other"],
           "desc":  "actual dec",
           "related": ["link1", "link2"]
@@ -43,4 +43,4 @@ def get_persona():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host="0.0.0.0")
