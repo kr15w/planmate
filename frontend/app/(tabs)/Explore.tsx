@@ -6,12 +6,14 @@ import {
   ScrollView,
   View,
   Image,
+  Dimensions,
 } from "react-native";
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import { Tag } from "@/components/Tag";
 import { StarRating } from "@/components/StarRating";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
+import ImageCarousel from "@/components/ImageCarousel";
 
 export default function Explore() {
   let [sug, setSug] = useState({
@@ -44,33 +46,14 @@ export default function Explore() {
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
       headerImage={
-        <ScrollView
-          horizontal={true}
-          fadingEdgeLength={0}
-          decelerationRate={0.8}
-          style={styles.imageContainer}
-        >
-          <Image
-            style={{ width: 1000, height: 100 }}
-            source={{ uri: "assets/images/Tokyo licensed image 1.png" }}
-          />
-          <Image
-            style={{ width: 100, height: 100 }}
-            source={{ uri: "assets/images/Tokyo licensed image 1.png" }}
-          />
-          <Image
-            style={{ width: 100, height: 100 }}
-            source={{ uri: "assets/images/Tokyo licensed image 1.png" }}
-          />
-          <Image
-            style={{ width: 100, height: 100 }}
-            source={{ uri: "assets/images/Tokyo licensed image 1.png" }}
-          />
-          <Image
-            style={{ width: 100, height: 100 }}
-            source={{ uri: "assets/images/Tokyo licensed image 1.png" }}
-          />
-        </ScrollView>
+        <ImageCarousel
+          imageRequires={[
+            require("@/assets/images/Tokyo licensed image 1.png"),
+            require("@/assets/images/Tokyo June 8 1.png"),
+            require("@/assets/images/Tokyo licensed image 1.png"),
+            require("@/assets/images/Tokyo June 8 1.png"),
+          ]}
+        />
       }
     >
       <ThemedView style={{ padding: 10 }}>
@@ -110,5 +93,4 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
   },
-  imageContainer: {},
 });
